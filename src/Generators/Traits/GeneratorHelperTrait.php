@@ -42,6 +42,6 @@ trait GeneratorHelperTrait
      */
     private function getStubSelector($onTrue, $onFalse, $isQueueable = false)
     {
-        return __DIR__ . ($isQueueable ? $onTrue : $onFalse);
+        return $isQueueable ? $onTrue : $onFalse;
     }
 }

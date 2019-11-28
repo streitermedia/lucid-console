@@ -100,8 +100,8 @@ class OperationGenerator extends Generator
     protected function getStub($isQueueable = false)
     {
         return $this->getStubSelector(
-            '/stubs/queueable-operation.stub',
-            '/stubs/operation.stub',
+            __DIR__ . '/stubs/queueable-operation.stub',
+            __DIR__ . '/stubs/operation.stub',
             $isQueueable
         );
     }

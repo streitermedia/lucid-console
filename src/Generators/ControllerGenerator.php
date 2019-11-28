@@ -11,7 +11,6 @@
 
 namespace Lucid\Console\Generators;
 
-use Exception;
 use Lucid\Console\Str;
 use Lucid\Console\Generators\Traits\GeneratorHelperTrait;
 
@@ -57,8 +56,8 @@ class ControllerGenerator extends Generator
     protected function getStub($plain)
     {
         return $this->getStubSelector(
-            '/stubs/controller.plain.stub',
-            '/stubs/controller.stub',
+            __DIR__ . '/stubs/controller.plain.stub',
+            __DIR__ . '/stubs/controller.stub',
             $plain
         );
     }
