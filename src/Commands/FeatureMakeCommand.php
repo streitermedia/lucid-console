@@ -57,7 +57,7 @@ class FeatureMakeCommand extends SymfonyCommand
     public function handle()
     {
         try {
-            $service = studly_case($this->argument('service'));
+            $service = \Illuminate\Support\Str::studly($this->argument('service'));
             $title = $this->parseName($this->argument('feature'));
 
             $generator = new FeatureGenerator();
