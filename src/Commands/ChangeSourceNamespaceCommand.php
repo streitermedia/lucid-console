@@ -105,6 +105,8 @@ class ChangeSourceNamespaceCommand extends SymfonyCommand
      * Replace the App namespace at the given path.
      *
      * @param string $path
+     *
+     * @throws \Exception
      */
     protected function replaceNamespace($path)
     {

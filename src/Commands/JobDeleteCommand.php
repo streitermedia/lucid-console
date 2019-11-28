@@ -51,12 +51,13 @@ class JobDeleteCommand extends SymfonyCommand
     /**
      * Execute the console command.
      *
-     * @return bool|null
+     * @return void
+     * @throws \Exception
      */
     public function handle()
     {
         try {
-            $domain = studly_case($this->argument('domain'));
+            $domain = \Illuminate\Support\Str::studly($this->argument('domain'));
             $title = $this->parseName($this->argument('job'));
 
             if (!$this->exists($job = $this->findJobPath($domain, $title))) {
@@ -70,7 +71,7 @@ class JobDeleteCommand extends SymfonyCommand
 
                 $this->info('Job class <comment>'.$title.'</comment> deleted successfully.');
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
     }

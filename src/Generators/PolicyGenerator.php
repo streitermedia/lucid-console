@@ -30,7 +30,7 @@ class PolicyGenerator extends Generator
         $path = $this->findPolicyPath($policy);
 
         if ($this->exists($path)) {
-            throw new Exception('Policy already exists');
+            throw new \ErrorException('Policy already exists');
 
             return false;
         }

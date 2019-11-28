@@ -42,6 +42,7 @@
       * Execute the console command.
       *
       * @return bool|null
+      * @throws \Exception
       */
      public function handle()
      {
@@ -62,7 +63,7 @@
             return true;
         }
 
-        throw new InvalidArgumentException('Feature with name "'.$this->argument('feature').'" not found.');
+        throw new \InvalidArgumentException('Feature with name "'.$this->argument('feature').'" not found.');
      }
 
 

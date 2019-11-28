@@ -65,6 +65,8 @@ class JobGenerator extends Generator
      *
      * @param string $job
      * @param string $domain
+     *
+     * @throws Exception
      */
     private function generateTestFile($job, $domain)
     {
@@ -103,13 +105,11 @@ class JobGenerator extends Generator
      */
     public function getStub($isQueueable = false)
     {
-        $stubName;
-        if ($isQueueable) {
-            $stubName = '/stubs/queueable-job.stub';
-        } else {
-            $stubName = '/stubs/job.stub';
-        }
-        return __DIR__.$stubName;
+        return $this->getStubSelector(
+            '/stubs/queueable-job.stub',
+            '/stubs/job.stub',
+            $isQueueable
+        );
     }
 
     /**

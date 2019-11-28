@@ -11,6 +11,7 @@
 
 namespace Lucid\Console\Commands;
 
+use Exception;
 use Lucid\Console\Command;
 use Lucid\Console\Filesystem;
 use Lucid\Console\Finder;
@@ -53,13 +54,13 @@ class OperationMakeCommand extends SymfonyCommand
     /**
      * Execute the console command.
      *
-     * @return bool|null
+     * @return void
      */
     public function handle()
     {
         $generator = new OperationGenerator();
 
-        $service = studly_case($this->argument('service'));
+        $service = \Illuminate\Support\Str::studly($this->argument('service'));
         $title = $this->parseName($this->argument('operation'));
         $isQueueable = $this->option('queue');
         try {

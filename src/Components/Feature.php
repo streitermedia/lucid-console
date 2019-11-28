@@ -30,17 +30,4 @@ class Feature extends Component
             'content' => $content,
         ]);
     }
-
-    // public function toArray()
-    // {
-    //     $attributes = parent::toArray();
-    //
-    //     // real path not needed
-    //     unset($attributes['realPath']);
-    //
-    //     // map the service object to its name
-    //     $attributes['service'] = $attributes['service']->name;
-    //
-    //     return $attributes;
-    // }
 }

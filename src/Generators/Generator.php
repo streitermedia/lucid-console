@@ -13,7 +13,6 @@ namespace Lucid\Console\Generators;
 
 use Lucid\Console\Finder;
 use Lucid\Console\Filesystem;
-use Illuminate\Filesystem\Filesystem as IlluminateFilesystem;
 
 /**
  * @author Abed Halawi <abed.halawi@vinelab.com>

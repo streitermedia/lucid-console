@@ -12,7 +12,7 @@
 namespace Lucid\Console;
 
 use Illuminate\Support\ServiceProvider;
-use Stevebauman\LogReader\LogReaderServiceProvider;
+//use Stevebauman\LogReader\LogReaderServiceProvider;
 
 /**
  * @author Abed Halawi <abed.halawi@vinelab.com>
@@ -54,7 +54,7 @@ class LucidServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/../config/lucid.php';
         $this->mergeConfigFrom($configPath, 'lucid');
 
-        $this->app->register(LogReaderServiceProvider::class);
+        //$this->app->register(LogReaderServiceProvider::class);
     }
 
     /**

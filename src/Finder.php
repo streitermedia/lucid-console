@@ -150,7 +150,7 @@ trait Finder
             }
         }
 
-        throw new Exception('App namespace not set in composer.json');
+        throw new \RuntimeException('App namespace not set in composer.json');
     }
 
     /**
@@ -169,6 +169,7 @@ trait Finder
      * @param string $service
      *
      * @return string
+     * @throws Exception
      */
     public function findServiceNamespace($service)
     {
@@ -239,7 +240,7 @@ trait Finder
      * Find the test file path for the given feature.
      *
      * @param string $service
-     * @param string $feature
+     * @param string $test
      *
      * @return string
      */
@@ -256,6 +257,7 @@ trait Finder
      * @param string $service
      *
      * @return string
+     * @throws Exception
      */
     public function findFeatureNamespace($service)
     {
@@ -268,6 +270,7 @@ trait Finder
      * @param string $service
      *
      * @return string
+     * @throws Exception
      */
     public function findFeatureTestNamespace($service)
     {
@@ -303,7 +306,7 @@ trait Finder
      * Find the test file path for the given operation.
      *
      * @param string $service
-     * @param string $operation
+     * @param string $test
      *
      * @return string
      */
@@ -320,6 +323,7 @@ trait Finder
      * @param string $service
      *
      * @return string
+     * @throws Exception
      */
     public function findOperationNamespace($service)
     {
@@ -332,6 +336,7 @@ trait Finder
      * @param string $service
      *
      * @return string
+     * @throws Exception
      */
     public function findOperationTestNamespace($service)
     {
@@ -394,9 +399,10 @@ trait Finder
      * List the jobs per domain,
      * optionally provide a domain name to list its jobs.
      *
-     * @param string $domain
+     * @param null $domainName
      *
      * @return Collection
+     * @throws Exception
      */
     public function listJobs($domainName = null)
     {
@@ -452,6 +458,7 @@ trait Finder
      * @param string $domain
      *
      * @return string
+     * @throws Exception
      */
     public function findDomainNamespace($domain)
     {
@@ -464,6 +471,7 @@ trait Finder
      * @param string $domain
      *
      * @return string
+     * @throws Exception
      */
     public function findDomainJobsNamespace($domain)
     {
@@ -476,6 +484,7 @@ trait Finder
      * @param string $domain
      *
      * @return string
+     * @throws Exception
      */
     public function findDomainJobsTestsNamespace($domain)
     {
@@ -502,7 +511,7 @@ trait Finder
      * Find the test path for the given job.
      *
      * @param string $domain
-     * @param string $job
+     * @param $jobTest
      *
      * @return string
      */
@@ -530,6 +539,7 @@ trait Finder
      * @param string $service
      *
      * @return string
+     * @throws Exception
      */
     public function findControllerNamespace($service)
     {
@@ -563,6 +573,7 @@ trait Finder
      * @param string $service
      *
      * @return \Lucid\Console\Components\Service
+     * @throws Exception
      */
     public function findService($service)
     {
@@ -585,6 +596,7 @@ trait Finder
      * @param string $domain
      *
      * @return \Lucid\Console\Components\Domain
+     * @throws Exception
      */
     public function findDomain($domain)
     {
@@ -612,6 +624,7 @@ trait Finder
      * @param string $name
      *
      * @return \Lucid\Console\Components\Feature
+     * @throws Exception
      */
     public function findFeature($name)
     {
@@ -642,7 +655,8 @@ trait Finder
      *
      * @param string $name
      *
-     * @return \Lucid\Console\Components\Feature
+     * @return Job
+     * @throws Exception
      */
     public function findJob($name)
     {
@@ -675,9 +689,8 @@ trait Finder
      *
      * @param string $serviceName
      *
-     * @return \Illuminate\Support\Collection
+     * @return array
      *
-     * @throws \Exception
      */
     public function listFeatures($serviceName = '')
     {
@@ -780,6 +793,7 @@ trait Finder
      * Get the namespace for the Models.
      *
      * @return string
+     * @throws Exception
      */
     public function findModelNamespace()
     {
@@ -790,6 +804,7 @@ trait Finder
      * Get the namespace for Policies.
      *
      * @return mixed
+     * @throws Exception
      */
     public function findPolicyNamespace()
     {
@@ -802,6 +817,7 @@ trait Finder
      * @param string $service
      *
      * @return string
+     * @throws Exception
      */
     public function findRequestsNamespace($service)
     {

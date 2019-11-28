@@ -53,13 +53,14 @@ class JobMakeCommand extends SymfonyCommand
     /**
      * Execute the console command.
      *
-     * @return bool|null
+     * @return void
+     * @throws \Exception
      */
     public function handle()
     {
         $generator = new JobGenerator();
 
-        $domain = studly_case($this->argument('domain'));
+        $domain = \Illuminate\Support\Str::studly($this->argument('domain'));
         $title = $this->parseName($this->argument('job'));
         $isQueueable = $this->option('queue');
         try {

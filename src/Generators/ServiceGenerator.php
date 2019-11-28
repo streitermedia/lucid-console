@@ -76,8 +76,8 @@ class ServiceGenerator extends Generator
         return new Service(
             $name,
             $slug,
-            $path,
-            $this->relativeFromReal($path)
+            $path
+            //$this->relativeFromReal($path)
         );
     }
 
@@ -100,9 +100,11 @@ class ServiceGenerator extends Generator
      * Add the corresponding service provider for the created service.
      *
      * @param string $name
+     * @param $slug
      * @param string $path
      *
-     * @return bool
+     * @return void
+     * @throws Exception
      */
     public function addServiceProviders($name, $slug, $path)
     {
@@ -134,10 +136,12 @@ class ServiceGenerator extends Generator
     /**
      * Create the routes service provider file.
      *
-     * @param  string $name
-     * @param  string $path
-     * @param  string $slug
-     * @param  string $namespace
+     * @param string $name
+     * @param string $path
+     * @param string $slug
+     * @param string $namespace
+     *
+     * @throws Exception
      */
     public function createRouteServiceProvider($name, $path, $slug, $namespace)
     {

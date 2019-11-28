@@ -41,7 +41,7 @@ class ServicesListCommand extends SymfonyCommand
     {
         $services = $this->listServices()->all();
 
-        $this->table(['Service', 'Slug', 'Path'], array_map(function($service) {
+        $this->table(['Service', 'Slug', 'Path'], array_map(function ($service) {
             return [$service->name, $service->slug, $service->relativePath];
         }, $services));
     }

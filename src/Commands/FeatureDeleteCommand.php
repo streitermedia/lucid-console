@@ -66,7 +66,7 @@ class FeatureDeleteCommand extends SymfonyCommand
 
                 $this->info('Feature class <comment>'.$title.'</comment> deleted successfully.');
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
     }

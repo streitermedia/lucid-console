@@ -52,7 +52,7 @@ class FeatureMakeCommand extends SymfonyCommand
     /**
      * Execute the console command.
      *
-     * @return bool|null
+     * @throws \Exception
      */
     public function handle()
     {
@@ -69,7 +69,7 @@ class FeatureMakeCommand extends SymfonyCommand
                 "\n".
                 'Find it at <comment>'.$feature->relativePath.'</comment>'."\n"
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
     }

@@ -13,12 +13,15 @@ namespace Lucid\Console\Generators;
 
 use Exception;
 use Lucid\Console\Str;
+use Lucid\Console\Generators\Traits\GeneratorHelperTrait;
 
 /**
  * @author Abed Halawi <abed.halawi@vinelab.com>
  */
 class ControllerGenerator extends Generator
 {
+    use GeneratorHelperTrait;
+
     public function generate($name, $service, $plain = false)
     {
         $name = Str::controller($name);
@@ -27,9 +30,7 @@ class ControllerGenerator extends Generator
         $path = $this->findControllerPath($service, $name);
 
         if ($this->exists($path)) {
-            throw new Exception('Controller already exists!');
-
-            return false;
+            throw new \ErrorException('Controller already exists!');
         }
 
         $namespace = $this->findControllerNamespace($service);
@@ -49,14 +50,16 @@ class ControllerGenerator extends Generator
     /**
      * Get the stub file for the generator.
      *
+     * @param bool $plain
+     *
      * @return string
      */
     protected function getStub($plain)
     {
-        if ($plain) {
-            return __DIR__.'/stubs/controller.plain.stub';
-        }
-
-        return __DIR__.'/stubs/controller.stub';
+        return $this->getStubSelector(
+            '/stubs/controller.plain.stub',
+            '/stubs/controller.stub',
+            $plain
+        );
     }
 }

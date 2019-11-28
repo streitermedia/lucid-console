@@ -53,7 +53,7 @@ class NewCommand extends Command
         /*
          * @TODO: Get Lucid based on the Laravel version.
          */
-        $process = new Process($this->findComposer().' create-project laravel/laravel '.$directory);
+        $process = new Process([$this->findComposer(), ' create-project laravel/laravel ' . $directory]);
 
         if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
             $process->setTty(true);
@@ -70,11 +70,12 @@ class NewCommand extends Command
      * Verify that the application does not already exist.
      *
      * @param string $directory
+     * @param OutputInterface $output
      */
     protected function verifyApplicationDoesntExist($directory, OutputInterface $output)
     {
-        if ((is_dir($directory) || is_file($directory)) && $directory != getcwd()) {
-            throw new RuntimeException('Application already exists!');
+        if ($directory !== getcwd() && (is_dir($directory) || is_file($directory))) {
+            throw new \RuntimeException('Application already exists!');
         }
     }
 

@@ -22,14 +22,14 @@ class Parser
 {
     use Finder;
 
-    const SYNTAX_STRING = 'string';
-    const SYNTAX_KEYWORD = 'keyword';
-    const SYNTAX_INSTANTIATION = 'init';
+    private const SYNTAX_STRING = 'string';
+    private const SYNTAX_KEYWORD = 'keyword';
+    private const SYNTAX_INSTANTIATION = 'init';
 
     /**
      * Get the list of jobs for the given feature.
      *
-     * @param  \Lucid\Console\ComponentsFeature $feature
+     * @param  \Lucid\Console\Components\Feature $feature
      *
      * @return array
      */
@@ -128,20 +128,23 @@ class Parser
         * 		Instantiation with an imported class using a `use` statement
         * 		passing parameters to the construction of the instance.
         * 	- new ImportedClass
-        * 		Instantiation without parameters nor parantheses.
+        * 		Instantiation without parameters nor parenthesis.
         */
         switch ($this->jobSyntaxStyle($match)) {
             case self::SYNTAX_STRING:
-                list($name, $namespace) = $this->parseStringJobSyntax($match, $contents);
+                [$name, $namespace] = $this->parseStringJobSyntax($match);
                 break;
 
             case self::SYNTAX_KEYWORD:
-                list($name, $namespace) = $this->parseKeywordJobSyntax($match, $contents);
+                [$name, $namespace] = $this->parseKeywordJobSyntax($match, $contents);
                 break;
 
             case self::SYNTAX_INSTANTIATION:
-                list($name, $namespace) = $this->parseInitJobSyntax($match, $contents);
+                [$name, $namespace] = $this->parseInitJobSyntax($match, $contents);
                 break;
+
+            default:
+                [$name, $namespace] = ['', ''];
         }
 
         $domainName = $this->domainForJob($namespace);
@@ -170,14 +173,15 @@ class Parser
     /**
      * Parse the given job class written in the string syntax: 'Some\Domain\Job'
      *
-     * @param  string $match
-     * @param  string $contents
+     * @param string $match
      *
-     * @return string
+     * @return array
      */
-    private function parseStringJobSyntax($match, $contents)
+    private function parseStringJobSyntax($match)
     {
         $slash = strrpos($match, '\\');
+        $name = null;
+        $namespace = null;
         if ($slash !== false) {
             $name = str_replace('\\', '', substr($match, $slash));
             $namespace = '\\'.preg_replace('/^\\\/', '', $match);
@@ -187,12 +191,12 @@ class Parser
     }
 
     /**
-     * Parse the given job class written in the ::class keyword syntax:	SomeJob::class
+     * Parse the given job class written in the ::class keyword syntax:    SomeJob::class
      *
-     * @param  string $match
-     * @param  string $contents
+     * @param string $match
+     * @param string $contents
      *
-     * @return string
+     * @return array
      */
     private function parseKeywordJobSyntax($match, $contents)
     {
@@ -218,12 +222,12 @@ class Parser
     }
 
     /**
-     * Parse the given job class written in the ini syntax:	new SomeJob()
+     * Parse the given job class written in the ini syntax:    new SomeJob()
      *
-     * @param  string $match
-     * @param  string $contents
+     * @param string $match
+     * @param string $contents
      *
-     * @return string
+     * @return array
      */
     private function parseInitJobSyntax($match, $contents)
     {
@@ -265,14 +269,6 @@ class Parser
 
         return (!empty($domain)) ? $domain[1] : '';
     }
-
-        // if (strpos($match, '::class') !== false) {
-        //
-        // } elseif(strpos($match, 'new ') !== false) {
-        //
-        // } else {
-        //
-        // }
 
     /**
      * Filter the matched line in preparation for parsing.

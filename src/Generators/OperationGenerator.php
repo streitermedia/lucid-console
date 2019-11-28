@@ -14,12 +14,15 @@ namespace Lucid\Console\Generators;
 use Exception;
 use Lucid\Console\Str;
 use Lucid\Console\Components\Operation;
+use Lucid\Console\Generators\Traits\GeneratorHelperTrait;
 
 /**
  * @author Ali Issa <ali@vinelab.com>
  */
 class OperationGenerator extends Generator
 {
+    use GeneratorHelperTrait;
+
     public function generate($operation, $service, $isQueueable = false, array $jobs = [])
     {
         $operation = Str::operation($operation);
@@ -28,7 +31,7 @@ class OperationGenerator extends Generator
         $path = $this->findOperationPath($service, $operation);
 
         if ($this->exists($path)) {
-            throw new Exception('Operation already exists!');
+            throw new \ErrorException('Operation already exists!');
 
             return false;
         }
@@ -37,18 +40,7 @@ class OperationGenerator extends Generator
 
         $content = file_get_contents($this->getStub($isQueueable));
 
-        $useJobs = ''; // stores the `use` statements of the jobs
-        $runJobs = ''; // stores the `$this->run` statements of the jobs
-
-        foreach ($jobs as $index => $job) {
-            $useJobs .= 'use '.$job['namespace'].'\\'.$job['className'].";\n";
-            $runJobs .= "\t\t".'$this->run('.$job['className'].'::class);';
-
-            // only add carriage returns when it's not the last job
-            if ($index != count($jobs) - 1) {
-                $runJobs .= "\n\n";
-            }
-        }
+        [$useJobs, $runJobs] = $this->createJobStrings($jobs);
 
         $content = str_replace(
             ['{{operation}}', '{{namespace}}', '{{foundation_namespace}}', '{{use_jobs}}', '{{run_jobs}}'],
@@ -76,6 +68,8 @@ class OperationGenerator extends Generator
      *
      * @param string $operation
      * @param string $service
+     *
+     * @throws Exception
      */
     private function generateTestFile($operation, $service)
     {
@@ -99,17 +93,17 @@ class OperationGenerator extends Generator
     /**
      * Get the stub file for the generator.
      *
+     * @param bool $isQueueable
+     *
      * @return string
      */
     protected function getStub($isQueueable = false)
     {
-        $stubName;
-        if ($isQueueable) {
-            $stubName = '/stubs/queueable-operation.stub';
-        } else {
-            $stubName = '/stubs/operation.stub';
-        }
-        return __DIR__.$stubName;
+        return $this->getStubSelector(
+            '/stubs/queueable-operation.stub',
+            '/stubs/operation.stub',
+            $isQueueable
+        );
     }
 
     /**

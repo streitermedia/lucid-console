@@ -17,11 +17,13 @@
     "bin": ["lucid"],
     "minimum-stability": "stable",
     "require": {
-        "symfony/console": "^4.1",
-        "symfony/process": "^4.1",
-        "symfony/finder": "^4.1",
-        "symfony/filesystem": "^4.1",
-        "stevebauman/log-reader": "^1.1",
-        "phploc/phploc": "~4.0"
+        "symfony/console": "4.4",
+        "symfony/process": "^4.4",
+        "symfony/finder": "^4.4",
+        "symfony/filesystem": "^4.4",
+        "phploc/phploc": "~4.0",
+        "ext-json": "*",
+        "illuminate/support": "^6.6",
+        "illuminate/console": "^6.6"
     }
 }

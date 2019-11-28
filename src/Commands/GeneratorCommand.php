@@ -11,6 +11,8 @@
 
 namespace Lucid\Console\Commands;
 
+use Illuminate\Console\GeneratorCommand as IlluminateGeneratorCommand;
+
 /**
  * @author Abed Halawi <abed.halawi@vinelab.com>
  */
@@ -21,5 +23,15 @@ class GeneratorCommand extends IlluminateGeneratorCommand
         parent::__construct($files);
 
         $this->generator = $generator;
+    }
+
+    /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
+    protected function getStub()
+    {
+        return '';
     }
 }
