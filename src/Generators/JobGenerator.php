@@ -109,8 +109,8 @@ class JobGenerator extends Generator
     public function getStub($isQueueable = false)
     {
         return $this->getStubSelector(
-            '/stubs/queueable-job.stub',
-            '/stubs/job.stub',
+            __DIR__ . '/stubs/queueable-job.stub',
+            __DIR__ . '/stubs/job.stub',
             $isQueueable
         );
     }
