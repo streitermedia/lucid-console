@@ -81,7 +81,7 @@ class JobGenerator extends Generator
 
         $content = str_replace(
             ['{{namespace}}', '{{testclass}}', '{{job}}', '{{job_namespace}}'],
-            [$namespace, $testClass, snake_case($job), $jobNamespace],
+            [$namespace, $testClass, \Illuminate\Support\Str::snake($job), $jobNamespace],
             $content
         );
 
