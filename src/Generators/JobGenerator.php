@@ -14,12 +14,15 @@ namespace Lucid\Console\Generators;
 use Exception;
 use Lucid\Console\Str;
 use Lucid\Console\Components\Job;
+use Lucid\Console\Generators\Traits\GeneratorHelperTrait;
 
 /**
  * @author Abed Halawi <abed.halawi@vinelab.com>
  */
 class JobGenerator extends Generator
 {
+    use GeneratorHelperTrait;
+
     public function generate($job, $domain, $isQueueable = false)
     {
         $job = Str::job($job);
